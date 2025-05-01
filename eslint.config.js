@@ -1430,5 +1430,76 @@ export default tseslint.config(
 			'@typescript-eslint/prefer-optional-chain': 'warn',
 			'@typescript-eslint/prefer-readonly': 'warn',
 		}
-	}
+	},
+	// TODO: @lego
+	{
+		files: [
+			'src/vs/workbench/contrib/chat/common/promptSyntax/service/promptsService.ts',
+			// 'src/vs/workbench/contrib/chat/common/promptSyntax/**/*.ts',
+		],
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				// TODO: @lego
+				project: [
+					'src/vs/workbench/contrib/chat/common/promptSyntax/tsconfig.json',
+				],
+			}
+		},
+		rules: {
+			'@typescript-eslint/prefer-readonly': 'warn',
+			'@typescript-eslint/prefer-optional-chain': 'warn',
+			'@typescript-eslint/await-thenable': 'error',
+			'@typescript-eslint/array-type': ['error', { 'default': 'array' }],
+			'@typescript-eslint/consistent-type-assertions': ['error', { 'assertionStyle': 'never' }],
+			'@typescript-eslint/consistent-type-exports': 'error',
+			'@typescript-eslint/consistent-type-imports': 'error',
+			'@typescript-eslint/explicit-function-return-type': [
+				'error',
+				{
+					allowDirectConstAssertionInArrowFunctions: false,
+				},
+			],
+			'@typescript-eslint/explicit-member-accessibility': [
+				'error',
+				{
+					accessibility: 'explicit',
+					ignoredMethodNames: ['constructor'],
+				}
+			],
+			// TODO: @lego - check other properties
+			'@typescript-eslint/explicit-module-boundary-types': 'error',
+			'@typescript-eslint/no-floating-promises': 'error',
+			// Note: you must disable the base rule as it can report incorrect errors
+			'no-shadow': 'off',
+			'@typescript-eslint/no-shadow': 'error',
+			// - TODO: @lego - how to disable for service injections?
+			'max-params': 'off',
+			'@typescript-eslint/max-params': [
+				'error',
+				{
+					'countVoidThis': false,
+					'max': 3,
+				},
+			],
+			'@typescript-eslint/no-explicit-any': 'error',
+			// '@typescript-eslint/ban-ts-comment': 'error',
+			// '@typescript-eslint/consistent-generic-constructors': ['error', { default: 'type-annotation' }],
+			'@typescript-eslint/naming-convention': [
+				'warn',
+				// variableLike
+				{ 'selector': 'variable', 'format': ['camelCase', 'UPPER_CASE', 'PascalCase'] },
+				{ 'selector': 'variable', 'filter': '^I.+Service$', 'format': ['PascalCase'], 'prefix': ['I'] },
+				// memberLike
+				{ 'selector': 'memberLike', 'format': ['camelCase'], 'leadingUnderscore': 'forbid', 'trailingUnderscore': 'forbid' },
+				{ 'selector': 'memberLike', 'filter': '^_serviceBrand$', 'format': ['camelCase'], 'leadingUnderscore': 'require' },
+				// { 'selector': 'memberLike', 'modifiers': ['protected'], 'format': ['camelCase'], 'leadingUnderscore': 'forbid' },
+				{ 'selector': 'enumMember', 'format': ['PascalCase'] },
+				// typeLike
+				{ 'selector': 'typeAlias', 'format': ['PascalCase'], 'prefix': ['T'] },
+				{ 'selector': 'interface', 'format': ['PascalCase'], 'prefix': ['I'] }
+			],
+			'comma-dangle': ['warn', 'only-multiline']
+		}
+	},
 );
